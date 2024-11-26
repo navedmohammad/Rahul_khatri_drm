@@ -1,8 +1,10 @@
 FROM ubuntu:latest
 
-# Install dependencies
+# Install system dependencies and build tools
 RUN apt-get update -y && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends gcc libffi-dev musl-dev ffmpeg aria2 python3-pip python3-venv \
+    && apt-get install -y --no-install-recommends \
+       gcc g++ make build-essential \
+       libffi-dev libssl-dev python3-dev python3-pip python3-venv musl-dev ffmpeg aria2 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
