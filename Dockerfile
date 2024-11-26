@@ -1,11 +1,8 @@
-FROM ubuntu:latest
-RUN apt-get update -y && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends gcc libffi-dev musl-dev ffmpeg aria2 python3-pip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+FROM python:3.12-slim
 
+WORKDIR /app
+COPY . /app
 
-COPY . /app/
-WORKDIR /app/
-RUN pip3 install --no-cache-dir --upgrade --requirement Installer
-CMD gunicorn app:app & python3 main.py
+RUN pip install --no-cache-dir --upgrade --requirement Installer
+
+CMD ["gunicorn", "app:app", "&", "python3", "main.py"]
